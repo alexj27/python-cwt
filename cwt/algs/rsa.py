@@ -50,7 +50,7 @@ class RSAKey(COSEKeyInterface):
             raise ValueError(f"Unsupported or unknown alg(3) for RSA: {params[3]}.")
         if params[3] in [-37, -38, -39]:
             self._padding = padding.PSS(
-                mgf=padding.MGF1(self._hash()), salt_length=padding.PSS.MAX_LENGTH
+                mgf=padding.MGF1(self._hash()), salt_length=self._hash().digest_size
             )
         else:
             self._padding = padding.PKCS1v15()
